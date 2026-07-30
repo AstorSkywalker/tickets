@@ -37,7 +37,7 @@ CREATE TABLE tk_usuarios_roles (
     CONSTRAINT tk_usuarios_roles_id_usuario_fk FOREIGN KEY (id_usuario) REFERENCES tk_usuarios(id_usuario)
 );
 
-REATE TABLE TK_AREAS (
+CREATE TABLE TK_AREAS (
     ID_AREA NUMBER PRIMARY KEY,
     CODIGO_AREA VARCHAR2(20) NOT NULL,
     NOMBRE_AREA VARCHAR2(100) NOT NULL,
