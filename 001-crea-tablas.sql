@@ -1,5 +1,5 @@
 -- =====================================================================
--- SISTEMA DE HELP DESK - MODELO DE DATOS ORACLE
+-- SISTEMA DE HELP DESK - MODELO DE DATOS ORACLE v1.0
 -- Versión corregida y consolidada
 -- Compatible con Oracle Database 19c, 21c y 23ai
 --
