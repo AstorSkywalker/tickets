@@ -1,11 +1,8 @@
-CREATE OR REPLACE PROCEDURE TK_CREA_AREAS_P 
-(
+CREATE OR REPLACE PROCEDURE TK_CREA_AREAS_P (
     pi_id_area IN INTEGER,
     pv_nombre_area IN VARCHAR2,
     pv_descripcion_area IN VARCHAR2,
-    pi_id_area_generado OUT INTEGER
-) 
-AS 
+    pi_id_area_generado OUT INTEGER) AS 
 BEGIN 
 
     DBMS_OUTPUT.PUT_LINE('Hola, mundo!');    
@@ -30,13 +27,10 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE PROCEDURE TK_ACTUALIZA_AREAS_P 
-(
+CREATE OR REPLACE PROCEDURE TK_ACTUALIZA_AREAS_P (
     pi_id_area IN INTEGER,
     pv_nombre_area IN VARCHAR2,
-    pv_descripcion_area IN VARCHAR2
-)
-AS
+    pv_descripcion_area IN VARCHAR2) AS
 BEGIN
 
     -- Validación de parámetros
@@ -63,9 +57,9 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE PROCEDURE TK_ELIMINA_AREAS_P 
-(
-    pi_id_area IN INTEGER
+CREATE OR REPLACE PROCEDURE TK_ELIMINA_AREAS_P (
+    pi_id_area IN INTEGER,
+    pv_resultado OUT VARCHAR2
 )
 AS
 BEGIN
@@ -79,8 +73,37 @@ BEGIN
     DELETE FROM TK_AREAS
     WHERE ID_AREA = pi_id_area;
 
+    -- Verificar si se eliminó algún registro
+    IF SQL%ROWCOUNT = 0 THEN
+        --RAISE_APPLICATION_ERROR(-20009, 'No se encontró el área con ID: ' || pi_id_area);
+        pv_resultado := 'No se encontró el área con ID: ' || pi_id_area;
+        --return;
+    END IF;
+
     -- Manejo de errores
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20008, 'Error al eliminar el área con ID: ' || pi_id_area || '. Detalles del error: ' || SQLERRM);
 END;
+/
+
+create or replace function tk_consulta_areas_f (
+    pi_id_area IN INTEGER
+) RETURN SYS_REFCURSOR AS
+  v_cursor     SYS_REFCURSOR;
+begin
+
+    open v_cursor for
+    select *
+    from tk_areas
+    where id_area = pi_id_area;
+
+    return v_cursor;
+
+end;
+
+create or replace function suma_dos_numeros (p_num1 in number, p_num2 in number) return number is
+begin
+    return p_num1 + p_num2;
+end suma_dos_numeros;
+/
