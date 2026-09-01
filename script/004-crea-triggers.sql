@@ -1,3 +1,4 @@
+-- Correr con usuario TICKETS
 -- Triggers del proyecto de tickets
 SET DEFINE OFF;
 SET SERVEROUTPUT ON;
