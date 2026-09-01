@@ -1,5 +1,5 @@
 -- Correr con un dba
-CONNECT SYS AS SYSDBA
+-- Requiere una conexión activa como SYS AS SYSDBA.
 
 -- Tablespace para el proyecto de tickets
 CREATE TABLESPACE TBS_TICKETS
