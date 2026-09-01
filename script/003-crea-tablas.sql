@@ -1,5 +1,7 @@
 -- =====================================================================
 -- SISTEMA DE HELP DESK - MODELO DE DATOS ORACLE v1.0
+CONNECT TICKETS/Tickets123
+
 -- Versión corregida y consolidada
 -- Compatible con Oracle Database 19c, 21c y 23ai
 --
@@ -32,7 +34,7 @@ CREATE TABLE TICKETS.TK_AREAS
   ACTIVA                 CHAR(1 CHAR)           DEFAULT 'S'                   NOT NULL
 );
 
-COMMENT ON TABLE TICKETS.TK_AREAS IS '�reas organizativas responsables o relacionadas con los tickets';
+COMMENT ON TABLE TICKETS.TK_AREAS IS 'Áreas organizativas responsables o relacionadas con los tickets';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_AREAS_NOMBRE_UK ON TICKETS.TK_AREAS
@@ -72,7 +74,7 @@ CREATE TABLE TICKETS.TK_BASE_CONOCIMIENTOS
   USUARIO_ACTUALIZACION  VARCHAR2(128 CHAR)
 );
 
-COMMENT ON TABLE TICKETS.TK_BASE_CONOCIMIENTOS IS 'Art�culos y soluciones reutilizables de la base de conocimientos';
+COMMENT ON TABLE TICKETS.TK_BASE_CONOCIMIENTOS IS 'Artículos y soluciones reutilizables de la base de conocimientos';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_BASE_CONOCIMIENTOS_PK ON TICKETS.TK_BASE_CONOCIMIENTOS
@@ -106,9 +108,9 @@ CREATE TABLE TICKETS.TK_CAT_ESTADOS
   ACTIVO                 CHAR(1 CHAR)           DEFAULT 'S'                   NOT NULL
 );
 
-COMMENT ON TABLE TICKETS.TK_CAT_ESTADOS IS 'Cat�logo de estados del ciclo de vida de un ticket';
+COMMENT ON TABLE TICKETS.TK_CAT_ESTADOS IS 'Catálogo de estados del ciclo de vida de un ticket';
 
-COMMENT ON COLUMN TICKETS.TK_CAT_ESTADOS.CERRADO IS 'Indica si el estado representa el cierre del ticket: S=S�, N=No';
+COMMENT ON COLUMN TICKETS.TK_CAT_ESTADOS.CERRADO IS 'Indica si el estado representa el cierre del ticket: S=Sí, N=No';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_CAT_ESTADOS_NOMBRE_UK ON TICKETS.TK_CAT_ESTADOS
@@ -154,7 +156,7 @@ CREATE TABLE TICKETS.TK_CAT_PRIORIDADES
   ACTIVA                 CHAR(1 CHAR)           DEFAULT 'S'                   NOT NULL
 );
 
-COMMENT ON TABLE TICKETS.TK_CAT_PRIORIDADES IS 'Cat�logo de prioridades y tiempos objetivo de atenci�n de tickets';
+COMMENT ON TABLE TICKETS.TK_CAT_PRIORIDADES IS 'Catálogo de prioridades y tiempos objetivo de atención de tickets';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_CAT_PRIORIDADES_NIVEL_UK ON TICKETS.TK_CAT_PRIORIDADES
@@ -206,7 +208,7 @@ CREATE TABLE TICKETS.TK_CATEGORIAS
   ACTIVA                 CHAR(1 CHAR)           DEFAULT 'S'                   NOT NULL
 );
 
-COMMENT ON TABLE TICKETS.TK_CATEGORIAS IS 'Categor�as utilizadas para clasificar los tickets';
+COMMENT ON TABLE TICKETS.TK_CATEGORIAS IS 'Categorías utilizadas para clasificar los tickets';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_CATEGORIAS_NOMBRE_UK ON TICKETS.TK_CATEGORIAS
@@ -277,9 +279,9 @@ CREATE TABLE TICKETS.TK_ENCUESTAS
   USUARIO_ACTUALIZACION  VARCHAR2(128 CHAR)
 );
 
-COMMENT ON TABLE TICKETS.TK_ENCUESTAS IS 'Encuesta de satisfacci�n registrada al finalizar un ticket';
+COMMENT ON TABLE TICKETS.TK_ENCUESTAS IS 'Encuesta de satisfacción registrada al finalizar un ticket';
 
-COMMENT ON COLUMN TICKETS.TK_ENCUESTAS.CALIFICACION IS 'Calificaci�n de satisfacci�n entre 1 y 5';
+COMMENT ON COLUMN TICKETS.TK_ENCUESTAS.CALIFICACION IS 'Calificación de satisfacción entre 1 y 5';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_ENCUESTAS_PK ON TICKETS.TK_ENCUESTAS
@@ -366,7 +368,7 @@ CREATE TABLE TICKETS.TK_TICKET_ADJUNTOS
 
 COMMENT ON TABLE TICKETS.TK_TICKET_ADJUNTOS IS 'Archivos adjuntos asociados a tickets almacenados en columnas BLOB';
 
-COMMENT ON COLUMN TICKETS.TK_TICKET_ADJUNTOS.HASH_SHA256 IS 'Hash SHA-256 hexadecimal del archivo para validaci�n de integridad y detecci�n de duplicados';
+COMMENT ON COLUMN TICKETS.TK_TICKET_ADJUNTOS.HASH_SHA256 IS 'Hash SHA-256 hexadecimal del archivo para validación de integridad y detección de duplicados';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_TICKET_ADJUNTOS_PK ON TICKETS.TK_TICKET_ADJUNTOS
@@ -420,9 +422,9 @@ CREATE TABLE TICKETS.TK_TICKETS
 
 COMMENT ON TABLE TICKETS.TK_TICKETS IS 'Tickets o solicitudes de soporte registradas en el sistema';
 
-COMMENT ON COLUMN TICKETS.TK_TICKETS.ID_USUARIO_REPORTA IS 'Usuario que report� la solicitud o incidencia';
+COMMENT ON COLUMN TICKETS.TK_TICKETS.ID_USUARIO_REPORTA IS 'Usuario que reportó la solicitud o incidencia';
 
-COMMENT ON COLUMN TICKETS.TK_TICKETS.ID_TECNICO_ASIGNADO IS 'T�cnico responsable de atender el ticket';
+COMMENT ON COLUMN TICKETS.TK_TICKETS.ID_TECNICO_ASIGNADO IS 'Técnico responsable de atender el ticket';
 
 COMMENT ON COLUMN TICKETS.TK_TICKETS.PORCENTAJE_AVANCE IS 'Porcentaje de avance del ticket entre 0 y 100';
 
@@ -512,11 +514,11 @@ CREATE TABLE TICKETS.TK_TICKETS_HISTORIAL
   FECHA_CAMBIO                 TIMESTAMP(6)     DEFAULT SYSTIMESTAMP          NOT NULL
 );
 
-COMMENT ON TABLE TICKETS.TK_TICKETS_HISTORIAL IS 'Hist�rico de cambios de tickets con valores anteriores y nuevos en columnas separadas';
+COMMENT ON TABLE TICKETS.TK_TICKETS_HISTORIAL IS 'Histórico de cambios de tickets con valores anteriores y nuevos en columnas separadas';
 
-COMMENT ON COLUMN TICKETS.TK_TICKETS_HISTORIAL.ID_TICKET IS 'Identificador del ticket auditado; no posee FK para permitir conservar el historial despu�s de eliminar el ticket';
+COMMENT ON COLUMN TICKETS.TK_TICKETS_HISTORIAL.ID_TICKET IS 'Identificador del ticket auditado; no posee FK para permitir conservar el historial después de eliminar el ticket';
 
-COMMENT ON COLUMN TICKETS.TK_TICKETS_HISTORIAL.USUARIO_CAMBIO IS 'Usuario de APEX o usuario de base de datos que realiz� la operaci�n';
+COMMENT ON COLUMN TICKETS.TK_TICKETS_HISTORIAL.USUARIO_CAMBIO IS 'Usuario de APEX o usuario de base de datos que realizó la operación';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_TICKETS_HISTORIAL_PK ON TICKETS.TK_TICKETS_HISTORIAL
@@ -548,7 +550,7 @@ CREATE TABLE TICKETS.TK_TIPOS_ACTIVOS
   ACTIVO                   CHAR(1 CHAR)         DEFAULT 'S'                   NOT NULL
 );
 
-COMMENT ON TABLE TICKETS.TK_TIPOS_ACTIVOS IS 'Cat�logo de tipos de activos tecnol�gicos';
+COMMENT ON TABLE TICKETS.TK_TIPOS_ACTIVOS IS 'Catálogo de tipos de activos tecnológicos';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_TIPOS_ACTIVOS_NOMBRE_UK ON TICKETS.TK_TIPOS_ACTIVOS
@@ -592,11 +594,11 @@ CREATE TABLE TICKETS.TK_USUARIOS
 
 COMMENT ON TABLE TICKETS.TK_USUARIOS IS 'Usuarios que reportan, atienden o administran tickets del sistema de help desk';
 
-COMMENT ON COLUMN TICKETS.TK_USUARIOS.ID_USUARIO IS 'Identificador �nico del usuario';
+COMMENT ON COLUMN TICKETS.TK_USUARIOS.ID_USUARIO IS 'Identificador único del usuario';
 
 COMMENT ON COLUMN TICKETS.TK_USUARIOS.USERNAME IS 'Nombre de usuario utilizado para identificar al usuario en el sistema';
 
-COMMENT ON COLUMN TICKETS.TK_USUARIOS.ACTIVO IS 'Indica si el usuario est� activo: S=S�, N=No';
+COMMENT ON COLUMN TICKETS.TK_USUARIOS.ACTIVO IS 'Indica si el usuario está activo: S=Sí, N=No';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_USUARIOS_EMAIL_UK ON TICKETS.TK_USUARIOS
@@ -639,7 +641,7 @@ CREATE TABLE TICKETS.TK_USUARIOS_ROLES
   USUARIO_ACTUALIZACION  VARCHAR2(128 CHAR)
 );
 
-COMMENT ON TABLE TICKETS.TK_USUARIOS_ROLES IS 'Relaci�n de muchos a muchos entre usuarios y roles';
+COMMENT ON TABLE TICKETS.TK_USUARIOS_ROLES IS 'Relación de muchos a muchos entre usuarios y roles';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_USUARIOS_ROLES_PK ON TICKETS.TK_USUARIOS_ROLES
@@ -730,11 +732,11 @@ CREATE TABLE TICKETS.TK_ACTIVOS
   ACTIVO                 CHAR(1 CHAR)           DEFAULT 'S'                   NOT NULL
 );
 
-COMMENT ON TABLE TICKETS.TK_ACTIVOS IS 'Inventario de activos tecnol�gicos que pueden asociarse a usuarios y tickets';
+COMMENT ON TABLE TICKETS.TK_ACTIVOS IS 'Inventario de activos tecnológicos que pueden asociarse a usuarios y tickets';
 
-COMMENT ON COLUMN TICKETS.TK_ACTIVOS.ID_ACTIVO IS 'Identificador �nico del activo';
+COMMENT ON COLUMN TICKETS.TK_ACTIVOS.ID_ACTIVO IS 'Identificador único del activo';
 
-COMMENT ON COLUMN TICKETS.TK_ACTIVOS.ID_USUARIO_ASIGNADO IS 'Usuario que tiene asignado el activo; puede ser nulo si el activo no est� asignado';
+COMMENT ON COLUMN TICKETS.TK_ACTIVOS.ID_USUARIO_ASIGNADO IS 'Usuario que tiene asignado el activo; puede ser nulo si el activo no está asignado';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_ACTIVOS_INVENTARIO_UK ON TICKETS.TK_ACTIVOS
@@ -777,7 +779,7 @@ CREATE TABLE TICKETS.TK_ACTIVOS_TICKETS
   USUARIO_ACTUALIZACION  VARCHAR2(128 CHAR)
 );
 
-COMMENT ON TABLE TICKETS.TK_ACTIVOS_TICKETS IS 'Relaci�n entre activos tecnol�gicos y tickets';
+COMMENT ON TABLE TICKETS.TK_ACTIVOS_TICKETS IS 'Relación entre activos tecnológicos y tickets';
 
 
 CREATE UNIQUE INDEX TICKETS.TK_ACTIVOS_TICKETS_PK ON TICKETS.TK_ACTIVOS_TICKETS

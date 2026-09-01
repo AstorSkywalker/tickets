@@ -1,4 +1,6 @@
 -- Correr con un DBA
+CONNECT SYS AS SYSDBA
+
 -- Usuario de desarrollo para el proyecto de tickets
 CREATE USER TICKETS IDENTIFIED BY Tickets123
     DEFAULT TABLESPACE TBS_TICKETS

@@ -1,4 +1,6 @@
 -- Correr con usuario TICKETS
+CONNECT TICKETS/Tickets123
+
 -- Triggers del proyecto de tickets
 SET DEFINE OFF;
 SET SERVEROUTPUT ON;
