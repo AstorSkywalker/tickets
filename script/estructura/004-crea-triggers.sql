@@ -1,5 +1,5 @@
 -- Correr con usuario TICKETS
-CONNECT TICKETS/Tickets123
+CONNECT TICKETS/Tickets123@192.168.80.178:1521/FREEpdb1
 
 -- Triggers del proyecto de tickets
 SET DEFINE OFF;

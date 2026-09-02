@@ -1,5 +1,5 @@
 -- Body CRUD para TICKETS.TK_USUARIOS_CRUD_PKG
-CONNECT TICKETS/Tickets123
+CONNECT TICKETS/Tickets123@192.168.80.178:1521/FREEpdb1
 SET DEFINE OFF
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
@@ -60,7 +60,7 @@ CREATE OR REPLACE PACKAGE BODY TICKETS.TK_USUARIOS_CRUD_PKG AS
             pv_resultado := 'ERROR: REGISTRO DUPLICADO. ' || SQLERRM;
         WHEN OTHERS THEN
             po_ID_USUARIO_generado := NULL;
-            pv_resultado := 'ERROR: ' || c_modulo || '.' + TK_USUARIOS_CREAR_P + ': ' || SQLERRM;
+            pv_resultado := 'ERROR: ' || c_modulo || '.' || 'TK_USUARIOS_CREAR_P' || ': ' || SQLERRM;
     END TK_USUARIOS_CREAR_P;
 
     PROCEDURE TK_USUARIOS_ACTUALIZAR_P(
@@ -102,7 +102,7 @@ CREATE OR REPLACE PACKAGE BODY TICKETS.TK_USUARIOS_CRUD_PKG AS
         WHEN DUP_VAL_ON_INDEX THEN
             pv_resultado := 'ERROR: REGISTRO DUPLICADO. ' || SQLERRM;
         WHEN OTHERS THEN
-            pv_resultado := 'ERROR: ' || c_modulo || '.' + TK_USUARIOS_ACTUALIZAR_P + ': ' || SQLERRM;
+            pv_resultado := 'ERROR: ' || c_modulo || '.' || 'TK_USUARIOS_ACTUALIZAR_P' || ': ' || SQLERRM;
     END TK_USUARIOS_ACTUALIZAR_P;
 
     PROCEDURE TK_USUARIOS_ELIMINAR_P(
@@ -119,7 +119,7 @@ CREATE OR REPLACE PACKAGE BODY TICKETS.TK_USUARIOS_CRUD_PKG AS
         pv_resultado := 'OK: REGISTRO ELIMINADO';
     EXCEPTION
         WHEN OTHERS THEN
-            pv_resultado := 'ERROR: ' || c_modulo || '.' + TK_USUARIOS_ELIMINAR_P + ': ' || SQLERRM;
+            pv_resultado := 'ERROR: ' || c_modulo || '.' || 'TK_USUARIOS_ELIMINAR_P' || ': ' || SQLERRM;
     END TK_USUARIOS_ELIMINAR_P;
 
     FUNCTION TK_USUARIOS_CONSULTAR_F(
@@ -148,7 +148,7 @@ CREATE OR REPLACE PACKAGE BODY TICKETS.TK_USUARIOS_CRUD_PKG AS
         RETURN v_cursor;
     EXCEPTION
         WHEN OTHERS THEN
-            RAISE_APPLICATION_ERROR(-20001, c_modulo || '.' + TK_USUARIOS_CONSULTAR_F + ': ' || SQLERRM);
+            RAISE_APPLICATION_ERROR(-20001, c_modulo || '.' || 'TK_USUARIOS_CONSULTAR_F' || ': ' || SQLERRM);
     END TK_USUARIOS_CONSULTAR_F;
 
 END TK_USUARIOS_CRUD_PKG;

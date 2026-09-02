@@ -1,5 +1,5 @@
 -- Especificación del paquete de reglas de negocio de tickets
-CONNECT TICKETS/Tickets123
+CONNECT TICKETS/Tickets123@192.168.80.178:1521/FREEpdb1
 SET DEFINE OFF
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 

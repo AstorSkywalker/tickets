@@ -7,7 +7,8 @@ SET SERVEROUTPUT ON
 SET DEFINE OFF
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
-CONNECT SYS@192.168.80.178:1521/FREEpdb1 AS SYSDBA
+-- El maestro usa la conexión SYS AS SYSDBA abierta por SQL*Plus/SQLcl.
+-- Ejemplo: CONNECT SYS/<password>@192.168.80.178:1521/FREEpdb1 AS SYSDBA
 
 -- 001-004: estructura base
 @@estructura/001-crea-tablespaces.sql
