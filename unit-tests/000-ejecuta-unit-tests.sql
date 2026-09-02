@@ -11,5 +11,6 @@ WHENEVER SQLERROR EXIT SQL.SQLCODE
 @@002-test-tk-tickets-negocio.sql
 @@003-test-tk-tickets-negocio-reglas.sql
 @@004-test-tk-tickets-negocio-operaciones.sql
+@@005-test-tk-categorias-crud.sql
 
 EXIT
