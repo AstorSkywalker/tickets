@@ -27,5 +27,6 @@ CONNECT SYS@192.168.80.178:1521/FREEpdb1 AS SYSDBA
 @@010-seed-tk-cat-prioridades.sql
 @@011-seed-tk-roles.sql
 @@012-seed-tk-tipos-activos.sql
+@@013-seed-usuarios-roles.sql
 
 EXIT
