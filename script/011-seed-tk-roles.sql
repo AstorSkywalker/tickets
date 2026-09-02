@@ -5,7 +5,7 @@ WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 MERGE INTO TICKETS.TK_ROLES t
 USING (
-    SELECT 'Administrador' AS nombre_rol, 'Administra la configuración y los catálogos del sistema.', 'S' AS activo FROM DUAL
+    SELECT 'Administrador' AS nombre_rol, 'Administra la configuración y los catálogos del sistema.' AS descripcion, 'S' AS activo FROM DUAL
     UNION ALL SELECT 'Técnico', 'Atiende, actualiza y resuelve tickets asignados.', 'S' FROM DUAL
     UNION ALL SELECT 'Supervisor', 'Supervisa la operación y distribución de tickets.', 'S' FROM DUAL
     UNION ALL SELECT 'Usuario', 'Registra solicitudes y consulta sus propios tickets.', 'S' FROM DUAL
