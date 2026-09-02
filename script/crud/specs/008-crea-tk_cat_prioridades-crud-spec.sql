@@ -1,0 +1,46 @@
+-- Spec CRUD para TICKETS.TK_CAT_PRIORIDADES_CRUD_PKG
+CONNECT TICKETS/Tickets123
+SET DEFINE OFF
+WHENEVER SQLERROR EXIT SQL.SQLCODE
+
+CREATE OR REPLACE PACKAGE TICKETS.TK_CAT_PRIORIDADES_CRUD_PKG AS
+
+    PROCEDURE TK_CAT_PRIORIDADES_CREAR_P(
+        p_id_prioridad                   IN  TICKETS.TK_CAT_PRIORIDADES.ID_PRIORIDAD%TYPE,
+        p_nombre_prioridad               IN  TICKETS.TK_CAT_PRIORIDADES.NOMBRE_PRIORIDAD%TYPE,
+        p_nivel                          IN  TICKETS.TK_CAT_PRIORIDADES.NIVEL%TYPE,
+        p_tiempo_sla_horas               IN  TICKETS.TK_CAT_PRIORIDADES.TIEMPO_SLA_HORAS%TYPE,
+        p_fecha_creacion                 IN  TICKETS.TK_CAT_PRIORIDADES.FECHA_CREACION%TYPE,
+        p_usuario_creacion               IN  TICKETS.TK_CAT_PRIORIDADES.USUARIO_CREACION%TYPE,
+        p_fecha_actualizacion            IN  TICKETS.TK_CAT_PRIORIDADES.FECHA_ACTUALIZACION%TYPE,
+        p_usuario_actualizacion          IN  TICKETS.TK_CAT_PRIORIDADES.USUARIO_ACTUALIZACION%TYPE,
+        p_activa                         IN  TICKETS.TK_CAT_PRIORIDADES.ACTIVA%TYPE,
+        po_ID_PRIORIDAD_generado       OUT TICKETS.TK_CAT_PRIORIDADES.ID_PRIORIDAD%TYPE,
+        pv_resultado                 OUT VARCHAR2
+    );
+
+    PROCEDURE TK_CAT_PRIORIDADES_ACTUALIZAR_P(
+        p_id_prioridad                   IN  TICKETS.TK_CAT_PRIORIDADES.ID_PRIORIDAD%TYPE,
+        p_nombre_prioridad               IN  TICKETS.TK_CAT_PRIORIDADES.NOMBRE_PRIORIDAD%TYPE,
+        p_nivel                          IN  TICKETS.TK_CAT_PRIORIDADES.NIVEL%TYPE,
+        p_tiempo_sla_horas               IN  TICKETS.TK_CAT_PRIORIDADES.TIEMPO_SLA_HORAS%TYPE,
+        p_fecha_creacion                 IN  TICKETS.TK_CAT_PRIORIDADES.FECHA_CREACION%TYPE,
+        p_usuario_creacion               IN  TICKETS.TK_CAT_PRIORIDADES.USUARIO_CREACION%TYPE,
+        p_fecha_actualizacion            IN  TICKETS.TK_CAT_PRIORIDADES.FECHA_ACTUALIZACION%TYPE,
+        p_usuario_actualizacion          IN  TICKETS.TK_CAT_PRIORIDADES.USUARIO_ACTUALIZACION%TYPE,
+        p_activa                         IN  TICKETS.TK_CAT_PRIORIDADES.ACTIVA%TYPE,
+        pv_resultado                 OUT VARCHAR2
+    );
+
+    PROCEDURE TK_CAT_PRIORIDADES_ELIMINAR_P(
+        p_ID_PRIORIDAD                   IN  TICKETS.TK_CAT_PRIORIDADES.ID_PRIORIDAD%TYPE,
+        pv_resultado                 OUT VARCHAR2
+    );
+
+    FUNCTION TK_CAT_PRIORIDADES_CONSULTAR_F(
+        p_ID_PRIORIDAD                   IN  TICKETS.TK_CAT_PRIORIDADES.ID_PRIORIDAD%TYPE DEFAULT NULL
+    ) RETURN SYS_REFCURSOR;
+
+END TK_CAT_PRIORIDADES_CRUD_PKG;
+/
+

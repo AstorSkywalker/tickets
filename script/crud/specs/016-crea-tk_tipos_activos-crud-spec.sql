@@ -1,0 +1,44 @@
+-- Spec CRUD para TICKETS.TK_TIPOS_ACTIVOS_CRUD_PKG
+CONNECT TICKETS/Tickets123
+SET DEFINE OFF
+WHENEVER SQLERROR EXIT SQL.SQLCODE
+
+CREATE OR REPLACE PACKAGE TICKETS.TK_TIPOS_ACTIVOS_CRUD_PKG AS
+
+    PROCEDURE TK_TIPOS_ACTIVOS_CREAR_P(
+        p_id_tipo_activo                 IN  TICKETS.TK_TIPOS_ACTIVOS.ID_TIPO_ACTIVO%TYPE,
+        p_nombre_tipo_activo             IN  TICKETS.TK_TIPOS_ACTIVOS.NOMBRE_TIPO_ACTIVO%TYPE,
+        p_descripcion_tipo_activo        IN  TICKETS.TK_TIPOS_ACTIVOS.DESCRIPCION_TIPO_ACTIVO%TYPE,
+        p_fecha_creacion                 IN  TICKETS.TK_TIPOS_ACTIVOS.FECHA_CREACION%TYPE,
+        p_usuario_creacion               IN  TICKETS.TK_TIPOS_ACTIVOS.USUARIO_CREACION%TYPE,
+        p_fecha_actualizacion            IN  TICKETS.TK_TIPOS_ACTIVOS.FECHA_ACTUALIZACION%TYPE,
+        p_usuario_actualizacion          IN  TICKETS.TK_TIPOS_ACTIVOS.USUARIO_ACTUALIZACION%TYPE,
+        p_activo                         IN  TICKETS.TK_TIPOS_ACTIVOS.ACTIVO%TYPE,
+        po_ID_TIPO_ACTIVO_generado     OUT TICKETS.TK_TIPOS_ACTIVOS.ID_TIPO_ACTIVO%TYPE,
+        pv_resultado                 OUT VARCHAR2
+    );
+
+    PROCEDURE TK_TIPOS_ACTIVOS_ACTUALIZAR_P(
+        p_id_tipo_activo                 IN  TICKETS.TK_TIPOS_ACTIVOS.ID_TIPO_ACTIVO%TYPE,
+        p_nombre_tipo_activo             IN  TICKETS.TK_TIPOS_ACTIVOS.NOMBRE_TIPO_ACTIVO%TYPE,
+        p_descripcion_tipo_activo        IN  TICKETS.TK_TIPOS_ACTIVOS.DESCRIPCION_TIPO_ACTIVO%TYPE,
+        p_fecha_creacion                 IN  TICKETS.TK_TIPOS_ACTIVOS.FECHA_CREACION%TYPE,
+        p_usuario_creacion               IN  TICKETS.TK_TIPOS_ACTIVOS.USUARIO_CREACION%TYPE,
+        p_fecha_actualizacion            IN  TICKETS.TK_TIPOS_ACTIVOS.FECHA_ACTUALIZACION%TYPE,
+        p_usuario_actualizacion          IN  TICKETS.TK_TIPOS_ACTIVOS.USUARIO_ACTUALIZACION%TYPE,
+        p_activo                         IN  TICKETS.TK_TIPOS_ACTIVOS.ACTIVO%TYPE,
+        pv_resultado                 OUT VARCHAR2
+    );
+
+    PROCEDURE TK_TIPOS_ACTIVOS_ELIMINAR_P(
+        p_ID_TIPO_ACTIVO                 IN  TICKETS.TK_TIPOS_ACTIVOS.ID_TIPO_ACTIVO%TYPE,
+        pv_resultado                 OUT VARCHAR2
+    );
+
+    FUNCTION TK_TIPOS_ACTIVOS_CONSULTAR_F(
+        p_ID_TIPO_ACTIVO                 IN  TICKETS.TK_TIPOS_ACTIVOS.ID_TIPO_ACTIVO%TYPE DEFAULT NULL
+    ) RETURN SYS_REFCURSOR;
+
+END TK_TIPOS_ACTIVOS_CRUD_PKG;
+/
+
