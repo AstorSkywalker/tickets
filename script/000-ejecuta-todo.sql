@@ -28,5 +28,7 @@ CONNECT SYS@192.168.80.178:1521/FREEpdb1 AS SYSDBA
 @@011-seed-tk-roles.sql
 @@012-seed-tk-tipos-activos.sql
 @@013-seed-usuarios-roles.sql
+@@014-crea-paquete-negocio-spec.sql
+@@015-crea-paquete-negocio-body.sql
 
 EXIT
