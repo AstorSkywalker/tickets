@@ -18,16 +18,14 @@ configuracion contra produccion.
 
 ## Cobertura actual
 
-`001-test-flujo-ticket-completo.sql` valida el flujo de un ticket desde su
-creacion hasta el cierre:
-
-- estado inicial `Nuevo`;
-- asignacion a tecnico e inicio de atencion;
-- comentario del solicitante;
-- asociacion de un activo;
-- resolucion y cierre;
-- encuesta posterior al cierre;
-- persistencia del historial y de la relacion con el activo.
+- `001-test-flujo-ticket-completo.sql`: ciclo completo desde `Nuevo` hasta
+  `Cerrado`, con comentario, activo, encuesta e historial.
+- `002-test-escenarios-ticket.sql`: espera, reanudacion, cancelacion, cierre,
+  reapertura y rechazo de reapertura no permitida.
+- `003-test-adjuntos-ticket.sql`: crear, actualizar y conservar un adjunto
+  durante la atencion y cierre del ticket.
+- `004-test-base-conocimientos-ticket.sql`: crear y publicar un articulo, y
+  resolver un ticket usando la solucion documentada.
 
 La prueba crea datos temporales y los elimina tanto al finalizar correctamente
 como cuando ocurre un error. El maestro se detiene en el primer error mediante

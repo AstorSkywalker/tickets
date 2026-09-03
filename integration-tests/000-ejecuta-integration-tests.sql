@@ -24,6 +24,11 @@ SET TERMOUT OFF
 @@003-test-adjuntos-ticket.sql
 SET TERMOUT ON
 PROMPT [OK] adjuntos en ticket
+PROMPT [04/04] base de conocimientos ...
+SET TERMOUT OFF
+@@004-test-base-conocimientos-ticket.sql
+SET TERMOUT ON
+PROMPT [OK] base de conocimientos
 PROMPT === TODAS LAS PRUEBAS INTEGRALES PASARON ===
 
 EXIT
