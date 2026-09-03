@@ -35,7 +35,26 @@ BEGIN
 END;
 /
 
-DROP USER tickets CASCADE;
-DROP TABLESPACE tbs_tickets INCLUDING CONTENTS AND DATAFILES;
+BEGIN
+    EXECUTE IMMEDIATE 'DROP USER TICKETS CASCADE';
+EXCEPTION
+    WHEN OTHERS THEN
+        -- ORA-01918: el usuario no existe; se puede continuar.
+        IF SQLCODE <> -1918 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLESPACE TBS_TICKETS INCLUDING CONTENTS AND DATAFILES';
+EXCEPTION
+    WHEN OTHERS THEN
+        -- ORA-00959: el tablespace no existe; se puede continuar.
+        IF SQLCODE <> -959 THEN
+            RAISE;
+        END IF;
+END;
+/
 
 EXIT
