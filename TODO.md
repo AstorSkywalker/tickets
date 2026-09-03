@@ -16,8 +16,11 @@
 ## Comandos principales
 
 ```powershell
-sql -thin -nolog "@unit-tests/000-ejecuta-unit-tests.sql"
-sql -thin -nolog "@integration-tests/000-ejecuta-integration-tests.sql"
+& "C:\sqlcl\bin\sql.exe" -thin /nolog "@C:\tickets\unit-tests\000-ejecuta-unit-tests-resumido.sql"
+& "C:\sqlcl\bin\sql.exe" -thin /nolog "@C:\tickets\unit-tests\000-ejecuta-unit-tests-verbose.sql"
+& "C:\sqlcl\bin\sql.exe" -thin /nolog "@C:\tickets\integration-tests\000-ejecuta-integration-tests.sql"
 ```
 
-Ambos comandos solicitan usuario, contrasena y EZ Connect al iniciar.
+El primer comando ejecuta las pruebas unitarias en modo resumido; el segundo
+las ejecuta en modo verbose. El tercero ejecuta las pruebas integrales. Todos
+solicitan usuario, contraseña y EZ Connect al iniciar.

@@ -1,63 +1,65 @@
-# Guia de pruebas unitarias
+# Guía de pruebas unitarias
 
-Esta carpeta contiene las pruebas de los paquetes CRUD y de las reglas de
-negocio del sistema de tickets. Se ejecutan contra el esquema `TICKETS` en la
-base de datos Oracle de desarrollo.
+Las pruebas unitarias validan cada paquete CRUD y las reglas de negocio por
+módulo. Se ejecutan contra el esquema `TICKETS` en Oracle.
 
 ## Requisitos
 
-- SQLcl instalado en `C:\sqlcl\bin\sql.exe`.
-- Acceso de red a Oracle.
-- Permisos para ejecutar los paquetes y consultar las tablas.
-- Datos semilla activos para usuarios, areas y catalogos.
+- SQLcl instalado y disponible como `sql`, o en `C:\sqlcl\bin\sql.exe`.
+- Conectividad con Oracle y acceso al servicio `freepdb1`.
+- Usuario `TICKETS` con permisos para ejecutar los paquetes y consultar las
+  tablas.
+- Datos semilla activos: usuarios, roles, áreas y catálogos.
 
-Los maestros solicitan usuario, contrasena e identificador EZ Connect al
-iniciar. Los valores predeterminados actuales son:
+Los maestros solicitan usuario, contraseña y EZ Connect. Los valores
+predeterminados definidos actualmente son:
 
 ```text
 Usuario: TICKETS
-Contrasena: Tickets123
+Contraseña: Tickets123
 EZ Connect: //192.168.0.17:1521/freepdb1
 ```
 
-Presiona Enter para aceptar cada valor o escribe uno diferente. No usar esta
-configuracion contra produccion.
+Presiona ENTER para aceptar cada valor o escribe uno diferente. No usar estos
+valores contra producción.
 
-## Ejecucion normal
+## Ejecución resumida
 
 Desde `C:\tickets`:
 
 ```powershell
-sql -thin -nolog "@unit-tests/000-ejecuta-unit-tests.sql"
+& "C:\sqlcl\bin\sql.exe" -thin /nolog "@C:\tickets\unit-tests\000-ejecuta-unit-tests-resumido.sql"
 ```
 
-El maestro ejecuta las 19 pruebas en orden y muestra una linea `[OK]` por
-modulo. Al finalizar muestra:
+Oculta el eco de comandos y el feedback repetitivo, pero conserva la salida de
+las aserciones (`OK`) porque las pruebas usan `DBMS_OUTPUT`.
 
-```text
-=== TODAS LAS PRUEBAS PASARON ===
-```
-
-## Ejecucion verbose
-
-Para mostrar cada asercion, el codigo PL/SQL y los comandos ejecutados:
+## Ejecución verbose
 
 ```powershell
-sql -thin -nolog "@unit-tests/000-ejecuta-unit-tests-verbose.sql"
+& "C:\sqlcl\bin\sql.exe" -thin /nolog "@C:\tickets\unit-tests\000-ejecuta-unit-tests-verbose.sql"
 ```
 
-El modo normal se recomienda para ejecuciones rutinarias; verbose sirve para
+Muestra los comandos, bloques PL/SQL y mensajes de cada aserción. Úsalo para
 diagnosticar un fallo.
+
+## Qué validan
+
+- Operaciones CRUD: crear, consultar, actualizar y eliminar cuando aplica.
+- Validaciones de datos inválidos y errores esperados.
+- Transiciones de estado y reglas del flujo de tickets.
+- Relaciones entre usuarios, roles, activos, adjuntos, comentarios e
+  historial.
 
 ## Orden y cobertura
 
 | Script | Cobertura |
 | --- | --- |
-| 001 | CRUD de areas |
+| 001 | CRUD de áreas |
 | 002 | Flujo principal de tickets |
 | 003 | Reglas negativas del negocio |
-| 004 | Espera, cancelacion y asociacion de activos |
-| 005 | CRUD de categorias |
+| 004 | Espera, cancelación y asociación de activos |
+| 005 | CRUD de categorías |
 | 006 | CRUD de base de conocimientos |
 | 007 | CRUD de estados |
 | 008 | CRUD de prioridades |
@@ -68,30 +70,20 @@ diagnosticar un fallo.
 | 013 | CRUD de usuarios-roles |
 | 015 | CRUD de tickets |
 | 014 | CRUD de adjuntos |
-| 016 | CRUD de historial de tickets |
+| 016 | CRUD del historial de tickets |
 | 017 | CRUD de tipos de activos |
 | 018 | CRUD de activos |
 | 019 | CRUD de activos-tickets |
 
-El orden respeta las dependencias: tickets se prueba antes de adjuntos, y
-tipos de activos y activos antes de su relacion.
-
-## Comportamiento y limpieza
-
-- Cada prueba valida creacion, consulta, actualizacion y eliminacion cuando
-  aplica, ademas de errores esperados para datos invalidos.
-- Las pruebas que necesitan claves foraneas crean datos temporales y los
-  eliminan al terminar.
-- El maestro usa `WHENEVER SQLERROR EXIT SQL.SQLCODE`; ante un error se detiene
-  y devuelve el codigo de Oracle.
-- Los bloques de excepcion intentan limpiar los datos temporales antes de
-  propagar el fallo.
+El maestro detiene la ejecución ante un error de Oracle mediante
+`WHENEVER SQLERROR EXIT SQL.SQLCODE`. Las pruebas crean datos temporales y
+procuran eliminarlos tanto en el flujo normal como en el de excepción.
 
 ## Agregar una prueba
 
-1. Crear un archivo con el siguiente numero disponible.
-2. Usar EZ Connect al servicio `FREEpdb1`.
-3. No depender de IDs generados previamente.
-4. Limpiar los datos temporales en el flujo normal y en la excepcion.
-5. Agregar el archivo al maestro respetando sus dependencias.
-6. Ejecutar el maestro normal y usar verbose para investigar fallos.
+1. Crea un archivo con el siguiente número disponible.
+2. Usa las variables `DB_USER`, `DB_PASSWORD` y `DB_CONNECT`.
+3. No dependas de IDs generados por otra prueba.
+4. Limpia los datos temporales en éxito y en excepción.
+5. Agrega el archivo al maestro respetando las dependencias.
+6. Ejecuta el maestro resumido y usa verbose para investigar fallos.

@@ -1,8 +1,7 @@
-# Unit tests
+# Pruebas unitarias
 
-Consulta la [guia completa de pruebas unitarias](UNIT-TESTS.md) para conocer
-los requisitos, comandos de ejecucion, cobertura y modos normal/verbose.
+Las pruebas unitarias validan paquetes CRUD y reglas de negocio de forma
+aislada contra el esquema `TICKETS` de Oracle.
 
-Pruebas unitarias de los paquetes y reglas de negocio del proyecto de tickets.
-
-Los scripts de prueba se agregarán aquí por módulo y se ejecutarán contra el esquema `TICKETS`.
+Consulta [UNIT-TESTS.md](UNIT-TESTS.md) para conocer los requisitos, comandos,
+orden de ejecución y cobertura.
