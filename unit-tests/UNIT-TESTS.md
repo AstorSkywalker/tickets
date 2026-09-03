@@ -11,17 +11,17 @@ base de datos Oracle de desarrollo.
 - Permisos para ejecutar los paquetes y consultar las tablas.
 - Datos semilla activos para usuarios, areas y catalogos.
 
-Los maestros solicitan el identificador EZ Connect al iniciar. El valor
-predeterminado actual es:
+Los maestros solicitan usuario, contrasena e identificador EZ Connect al
+iniciar. Los valores predeterminados actuales son:
 
 ```text
-//192.168.0.17:1521/freepdb1
+Usuario: TICKETS
+Contrasena: Tickets123
+EZ Connect: //192.168.0.17:1521/freepdb1
 ```
 
-Escribe otro valor cuando cambie la IP de la VM, por ejemplo
-`//192.168.80.178:1521/freepdb1`. El usuario y la contrasena de desarrollo se
-mantienen en los scripts de prueba. No usar esta configuracion contra
-produccion.
+Presiona Enter para aceptar cada valor o escribe uno diferente. La contrasena
+se solicita de forma oculta. No usar esta configuracion contra produccion.
 
 ## Ejecucion normal
 

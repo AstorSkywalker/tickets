@@ -1,6 +1,6 @@
 -- Prueba integral del ciclo de vida de un ticket.
 -- Ejecutar con SQLcl contra la base de datos de desarrollo.
-CONNECT TICKETS/Tickets123@&DB_CONNECT
+CONNECT &DB_USER/&DB_PASSWORD@&DB_CONNECT
 SET SERVEROUTPUT ON
 SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE

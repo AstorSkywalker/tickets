@@ -1,5 +1,5 @@
 -- Pruebas unitarias para TICKETS.TK_TICKETS_NEGOCIO_PKG
-CONNECT TICKETS/Tickets123@&DB_CONNECT
+CONNECT &DB_USER/&DB_PASSWORD@&DB_CONNECT
 SET SERVEROUTPUT ON
 SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
@@ -25,7 +25,7 @@ DECLARE
     PROCEDURE afirmar(p_condicion IN BOOLEAN, p_mensaje IN VARCHAR2) IS
     BEGIN
         IF NOT p_condicion THEN
-            RAISE_APPLICATION_ERROR(-20999, 'FALLÃ“: ' || p_mensaje);
+            RAISE_APPLICATION_ERROR(-20999, 'FALLÃƒâ€œ: ' || p_mensaje);
         END IF;
         DBMS_OUTPUT.PUT_LINE('OK: ' || p_mensaje);
     END afirmar;
@@ -60,7 +60,7 @@ BEGIN
     afirmar(v_id_reporta IS NOT NULL AND v_id_tecnico IS NOT NULL AND v_id_supervisor IS NOT NULL,
             'existencia de usuarios semilla');
     afirmar(v_id_categoria IS NOT NULL AND v_id_prioridad IS NOT NULL AND v_id_area IS NOT NULL,
-            'existencia de catÃ¡logos semilla');
+            'existencia de catÃƒÂ¡logos semilla');
 
     -- Crear ticket en estado Nuevo y validar el identity generado.
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CREAR_TICKET(
@@ -85,7 +85,7 @@ BEGIN
      WHERE t.ID_TICKET = v_id_ticket;
     afirmar(v_estado = 'Nuevo', 'asignar estado inicial Nuevo');
 
-    -- Asignar tÃ©cnico y validar transiciÃ³n a Asignado.
+    -- Asignar tÃƒÂ©cnico y validar transiciÃƒÂ³n a Asignado.
     TICKETS.TK_TICKETS_NEGOCIO_PKG.ASIGNAR_TICKET(
         p_id_ticket  => v_id_ticket,
         p_id_tecnico => v_id_tecnico,
@@ -93,22 +93,22 @@ BEGIN
         pv_codigo    => v_codigo,
         pv_mensaje   => v_mensaje
     );
-    afirmar(v_exito = 1 AND v_codigo = 'TICKET_ASIGNADO', 'asignar ticket a tÃ©cnico');
+    afirmar(v_exito = 1 AND v_codigo = 'TICKET_ASIGNADO', 'asignar ticket a tÃƒÂ©cnico');
 
-    -- Iniciar atenciÃ³n.
+    -- Iniciar atenciÃƒÂ³n.
     TICKETS.TK_TICKETS_NEGOCIO_PKG.INICIAR_ATENCION(
         p_id_ticket => v_id_ticket,
         po_exito    => v_exito,
         pv_codigo   => v_codigo,
         pv_mensaje  => v_mensaje
     );
-    afirmar(v_exito = 1 AND v_codigo = 'ATENCION_INICIADA', 'iniciar atenciÃ³n');
+    afirmar(v_exito = 1 AND v_codigo = 'ATENCION_INICIADA', 'iniciar atenciÃƒÂ³n');
 
     -- Agregar comentario operativo.
     TICKETS.TK_TICKETS_NEGOCIO_PKG.AGREGAR_COMENTARIO(
         p_id_ticket      => v_id_ticket,
         p_id_usuario     => v_id_tecnico,
-        p_comentario     => 'Comentario de prueba durante la atenciÃ³n.',
+        p_comentario     => 'Comentario de prueba durante la atenciÃƒÂ³n.',
         po_id_comentario => v_id_comentario,
         po_exito         => v_exito,
         pv_codigo        => v_codigo,
@@ -120,7 +120,7 @@ BEGIN
     TICKETS.TK_TICKETS_NEGOCIO_PKG.RESOLVER_TICKET(
         p_id_ticket      => v_id_ticket,
         p_id_usuario     => v_id_tecnico,
-        p_solucion       => TO_CLOB('Se aplicÃ³ la soluciÃ³n registrada en la prueba.'),
+        p_solucion       => TO_CLOB('Se aplicÃƒÂ³ la soluciÃƒÂ³n registrada en la prueba.'),
         po_id_comentario => v_id_comentario,
         po_exito         => v_exito,
         pv_codigo        => v_codigo,
@@ -145,11 +145,11 @@ BEGIN
      WHERE t.ID_TICKET = v_id_ticket;
     afirmar(v_estado = 'Cerrado', 'validar estado final Cerrado');
 
-    -- Registrar encuesta de satisfacciÃ³n.
+    -- Registrar encuesta de satisfacciÃƒÂ³n.
     TICKETS.TK_TICKETS_NEGOCIO_PKG.REGISTRAR_ENCUESTA(
         p_id_ticket    => v_id_ticket,
         p_calificacion => 5,
-        p_comentario   => 'Prueba de satisfacciÃ³n exitosa.',
+        p_comentario   => 'Prueba de satisfacciÃƒÂ³n exitosa.',
         po_id_encuesta => v_id_encuesta,
         po_exito       => v_exito,
         pv_codigo      => v_codigo,
@@ -165,7 +165,7 @@ BEGIN
 EXCEPTION
     WHEN OTHERS THEN
         limpiar_prueba;
-        DBMS_OUTPUT.PUT_LINE('=== PRUEBA DE NEGOCIO FALLÃ“ ===');
+        DBMS_OUTPUT.PUT_LINE('=== PRUEBA DE NEGOCIO FALLÃƒâ€œ ===');
         RAISE;
 END;
 /

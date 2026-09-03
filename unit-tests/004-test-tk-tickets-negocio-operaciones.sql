@@ -1,5 +1,5 @@
--- Pruebas de espera, cancelaciÃ³n y asociaciÃ³n de activos
-CONNECT TICKETS/Tickets123@&DB_CONNECT
+-- Pruebas de espera, cancelaciÃƒÂ³n y asociaciÃƒÂ³n de activos
+CONNECT &DB_USER/&DB_PASSWORD@&DB_CONNECT
 SET SERVEROUTPUT ON
 SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
@@ -27,7 +27,7 @@ DECLARE
     PROCEDURE afirmar(p_condicion IN BOOLEAN, p_mensaje IN VARCHAR2) IS
     BEGIN
         IF NOT p_condicion THEN
-            RAISE_APPLICATION_ERROR(-20999, 'FALLÃ“: ' || p_mensaje);
+            RAISE_APPLICATION_ERROR(-20999, 'FALLÃƒâ€œ: ' || p_mensaje);
         END IF;
         DBMS_OUTPUT.PUT_LINE('OK: ' || p_mensaje);
     END afirmar;
@@ -75,7 +75,7 @@ BEGIN
     afirmar(v_id_tipo_activo IS NOT NULL, 'existencia de tipo de activo semilla');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CREAR_TICKET(
-        'TEST ESPERA ' || v_marca_tiempo, TO_CLOB('Prueba de espera y cancelaciÃ³n.'),
+        'TEST ESPERA ' || v_marca_tiempo, TO_CLOB('Prueba de espera y cancelaciÃƒÂ³n.'),
         v_id_reporta, v_id_categoria, v_id_prioridad, v_id_area, 4,
         v_id_ticket, v_exito, v_codigo, v_mensaje
     );
@@ -92,7 +92,7 @@ BEGIN
     afirmar(v_exito = 1, 'iniciar ticket para espera');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.PONER_EN_ESPERA(
-        v_id_ticket, v_id_supervisor, 'Esperando informaciÃ³n del solicitante.',
+        v_id_ticket, v_id_supervisor, 'Esperando informaciÃƒÂ³n del solicitante.',
         v_id_comentario, v_exito, v_codigo, v_mensaje
     );
     afirmar(v_exito = 1 AND v_id_comentario IS NOT NULL, 'poner ticket en espera');
@@ -105,14 +105,14 @@ BEGIN
     afirmar(v_exito = 1, 'retomar ticket pendiente');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CANCELAR_TICKET(
-        v_id_ticket, v_id_supervisor, 'CancelaciÃ³n solicitada para la prueba.',
+        v_id_ticket, v_id_supervisor, 'CancelaciÃƒÂ³n solicitada para la prueba.',
         v_id_comentario, v_exito, v_codigo, v_mensaje
     );
     afirmar(v_exito = 1, 'cancelar ticket con motivo');
     obtener_estado(v_id_ticket, v_estado);
     afirmar(v_estado = 'Cancelado', 'validar estado Cancelado');
 
-    -- Crear un activo temporal para probar la relaciÃ³n activo-ticket.
+    -- Crear un activo temporal para probar la relaciÃƒÂ³n activo-ticket.
     INSERT INTO TICKETS.TK_ACTIVOS (
         NUMERO_SERIE, NUMERO_INVENTARIO, DESCRIPCION_ACTIVO,
         MARCA, MODELO, ID_TIPO_ACTIVO, UBICACION, ACTIVO
@@ -123,7 +123,7 @@ BEGIN
     ) RETURNING ID_ACTIVO INTO v_id_activo;
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CREAR_TICKET(
-        'TEST ACTIVO ' || v_marca_tiempo, TO_CLOB('Prueba de asociaciÃ³n de activo.'),
+        'TEST ACTIVO ' || v_marca_tiempo, TO_CLOB('Prueba de asociaciÃƒÂ³n de activo.'),
         v_id_reporta, v_id_categoria, v_id_prioridad, v_id_area, 2,
         v_id_ticket_2, v_exito, v_codigo, v_mensaje
     );
@@ -137,7 +137,7 @@ BEGIN
     SELECT COUNT(*) INTO v_count
       FROM TICKETS.TK_ACTIVOS_TICKETS
      WHERE ID_TICKET = v_id_ticket_2 AND ID_ACTIVO = v_id_activo;
-    afirmar(v_count = 1, 'validar relaciÃ³n activo-ticket');
+    afirmar(v_count = 1, 'validar relaciÃƒÂ³n activo-ticket');
 
     limpiar_ticket(v_id_ticket);
     limpiar_ticket(v_id_ticket_2);
@@ -152,7 +152,7 @@ EXCEPTION
             DELETE FROM TICKETS.TK_ACTIVOS WHERE ID_ACTIVO = v_id_activo;
         END IF;
         COMMIT;
-        DBMS_OUTPUT.PUT_LINE('=== PRUEBA DE OPERACIONES FALLÃ“ ===');
+        DBMS_OUTPUT.PUT_LINE('=== PRUEBA DE OPERACIONES FALLÃƒâ€œ ===');
         RAISE;
 END;
 /

@@ -1,5 +1,5 @@
 -- Pruebas de reglas negativas para TICKETS.TK_TICKETS_NEGOCIO_PKG
-CONNECT TICKETS/Tickets123@&DB_CONNECT
+CONNECT &DB_USER/&DB_PASSWORD@&DB_CONNECT
 SET SERVEROUTPUT ON
 SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
@@ -23,7 +23,7 @@ DECLARE
     PROCEDURE afirmar(p_condicion IN BOOLEAN, p_mensaje IN VARCHAR2) IS
     BEGIN
         IF NOT p_condicion THEN
-            RAISE_APPLICATION_ERROR(-20999, 'FALLÃ“: ' || p_mensaje);
+            RAISE_APPLICATION_ERROR(-20999, 'FALLÃƒâ€œ: ' || p_mensaje);
         END IF;
         DBMS_OUTPUT.PUT_LINE('OK: ' || p_mensaje);
     END afirmar;
@@ -65,15 +65,15 @@ BEGIN
         v_nombre_ticket, NULL, v_id_reporta, v_id_categoria, v_id_prioridad, v_id_area,
         4, v_id_ticket, v_exito, v_codigo, v_mensaje
     );
-    afirmar_error('rechazar descripciÃ³n nula');
+    afirmar_error('rechazar descripciÃƒÂ³n nula');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CREAR_TICKET(
-        v_nombre_ticket, TO_CLOB('DescripciÃ³n vÃ¡lida.'), v_id_reporta, -999999, v_id_prioridad, v_id_area,
+        v_nombre_ticket, TO_CLOB('DescripciÃƒÂ³n vÃƒÂ¡lida.'), v_id_reporta, -999999, v_id_prioridad, v_id_area,
         4, v_id_ticket, v_exito, v_codigo, v_mensaje
     );
-    afirmar_error('rechazar categorÃ­a inexistente');
+    afirmar_error('rechazar categorÃƒÂ­a inexistente');
 
-    -- Crear ticket vÃ¡lido para las pruebas de transiciÃ³n.
+    -- Crear ticket vÃƒÂ¡lido para las pruebas de transiciÃƒÂ³n.
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CREAR_TICKET(
         v_nombre_ticket, TO_CLOB('Ticket para probar reglas de negocio.'), v_id_reporta,
         v_id_categoria, v_id_prioridad, v_id_area, 4,
@@ -84,15 +84,15 @@ BEGIN
     TICKETS.TK_TICKETS_NEGOCIO_PKG.INICIAR_ATENCION(
         v_id_ticket, v_exito, v_codigo, v_mensaje
     );
-    afirmar_error('impedir iniciar ticket sin tÃ©cnico');
+    afirmar_error('impedir iniciar ticket sin tÃƒÂ©cnico');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.ASIGNAR_TICKET(
         v_id_ticket, v_id_usuario, v_exito, v_codigo, v_mensaje
     );
-    afirmar_error('impedir asignar usuario sin rol TÃ©cnico');
+    afirmar_error('impedir asignar usuario sin rol TÃƒÂ©cnico');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.RESOLVER_TICKET(
-        v_id_ticket, v_id_tecnico, TO_CLOB('No debe resolverse todavÃ­a.'),
+        v_id_ticket, v_id_tecnico, TO_CLOB('No debe resolverse todavÃƒÂ­a.'),
         v_id_comentario, v_exito, v_codigo, v_mensaje
     );
     afirmar_error('impedir resolver ticket no iniciado');
@@ -100,7 +100,7 @@ BEGIN
     TICKETS.TK_TICKETS_NEGOCIO_PKG.ASIGNAR_TICKET(
         v_id_ticket, v_id_tecnico, v_exito, v_codigo, v_mensaje
     );
-    afirmar(v_exito = 1, 'asignar tÃ©cnico vÃ¡lido');
+    afirmar(v_exito = 1, 'asignar tÃƒÂ©cnico vÃƒÂ¡lido');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CERRAR_TICKET(
         v_id_ticket, v_id_usuario, NULL, v_id_comentario, v_exito, v_codigo, v_mensaje
@@ -110,7 +110,7 @@ BEGIN
     TICKETS.TK_TICKETS_NEGOCIO_PKG.INICIAR_ATENCION(
         v_id_ticket, v_exito, v_codigo, v_mensaje
     );
-    afirmar(v_exito = 1, 'iniciar atenciÃ³n despuÃ©s de asignar');
+    afirmar(v_exito = 1, 'iniciar atenciÃƒÂ³n despuÃƒÂ©s de asignar');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CANCELAR_TICKET(
         v_id_ticket, v_id_usuario, NULL, v_id_comentario, v_exito, v_codigo, v_mensaje
@@ -118,7 +118,7 @@ BEGIN
     afirmar_error('impedir cancelar sin motivo');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.RESOLVER_TICKET(
-        v_id_ticket, v_id_tecnico, TO_CLOB('SoluciÃ³n de prueba.'),
+        v_id_ticket, v_id_tecnico, TO_CLOB('SoluciÃƒÂ³n de prueba.'),
         v_id_comentario, v_exito, v_codigo, v_mensaje
     );
     afirmar(v_exito = 1, 'resolver ticket');
@@ -139,7 +139,7 @@ BEGIN
     afirmar_error('impedir encuesta duplicada');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.REABRIR_TICKET(
-        v_id_ticket, v_id_usuario, 'Se requiere continuar la atenciÃ³n.',
+        v_id_ticket, v_id_usuario, 'Se requiere continuar la atenciÃƒÂ³n.',
         v_id_comentario, v_exito, v_codigo, v_mensaje
     );
     afirmar(v_exito = 1, 'reabrir ticket cerrado');
@@ -155,7 +155,7 @@ BEGIN
 EXCEPTION
     WHEN OTHERS THEN
         limpiar_prueba;
-        DBMS_OUTPUT.PUT_LINE('=== PRUEBA DE REGLAS FALLÃ“ ===');
+        DBMS_OUTPUT.PUT_LINE('=== PRUEBA DE REGLAS FALLÃƒâ€œ ===');
         RAISE;
 END;
 /

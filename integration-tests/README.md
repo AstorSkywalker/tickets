@@ -11,6 +11,11 @@ Desde `C:\tickets`:
 sql -thin -nolog "@integration-tests/000-ejecuta-integration-tests.sql"
 ```
 
+El maestro solicita usuario, contrasena y EZ Connect. Por defecto propone
+`TICKETS`, `Tickets123` y `//192.168.0.17:1521/freepdb1`, respectivamente.
+Presiona Enter para aceptar un valor o escribe uno diferente; la contrasena
+se solicita de forma oculta.
+
 ## Cobertura actual
 
 `001-test-flujo-ticket-completo.sql` valida el flujo de un ticket desde su
