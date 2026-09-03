@@ -101,4 +101,3 @@ CONNECT &DB_USER/&DB_PASSWORD@&DB_CONNECT
 
 PROMPT Proceso completado correctamente.
 EXIT
-
