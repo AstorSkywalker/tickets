@@ -1,6 +1,9 @@
 -- Ejecutar con SQL*Plus o SQLcl.
 -- Borra el usuario y tablespace de la base de datos.
 -- El usuario TICKETS no debe estar conectado al momento de ejecutar el script.
+--
+-- Desde PowerShell, ejecutar con SQLcl en modo Thin:
+-- & "C:\sqlcl\bin\sql.exe" -thin "sys@//192.168.80.178:1521/freepdb1 as sysdba" "@C:\tickets\script\XXX-NO-EJECUTAR.sql"
 
 SET ECHO OFF
 SET VERIFY OFF
