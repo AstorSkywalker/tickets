@@ -1,8 +1,8 @@
 -- Prueba integral del ciclo de vida de un ticket.
 -- Ejecutar con SQLcl contra la base de datos de desarrollo.
-CONNECT TICKETS/Tickets123@//192.168.80.178:1521/FREEpdb1
+CONNECT TICKETS/Tickets123@&DB_CONNECT
 SET SERVEROUTPUT ON
-SET DEFINE OFF
+SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 DECLARE

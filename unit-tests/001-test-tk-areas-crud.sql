@@ -1,7 +1,7 @@
 -- Pruebas unitarias para TICKETS.TK_AREAS_CRUD_PKG
-CONNECT TICKETS/Tickets123@//192.168.80.178:1521/FREEpdb1
+CONNECT TICKETS/Tickets123@&DB_CONNECT
 SET SERVEROUTPUT ON
-SET DEFINE OFF
+SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 DECLARE
@@ -21,7 +21,7 @@ DECLARE
     PROCEDURE afirmar(p_condicion IN BOOLEAN, p_mensaje IN VARCHAR2) IS
     BEGIN
         IF NOT p_condicion THEN
-            RAISE_APPLICATION_ERROR(-20999, 'FALLÓ: ' || p_mensaje);
+            RAISE_APPLICATION_ERROR(-20999, 'FALLÃ“: ' || p_mensaje);
         END IF;
         DBMS_OUTPUT.PUT_LINE('OK: ' || p_mensaje);
     END afirmar;
@@ -32,7 +32,7 @@ BEGIN
     TICKETS.TK_AREAS_CRUD_PKG.TK_AREAS_CREAR_P(
         p_id_area               => NULL,
         p_nombre_area           => v_nombre_prueba,
-        p_descripcion           => 'Área creada por prueba unitaria.',
+        p_descripcion           => 'Ãrea creada por prueba unitaria.',
         p_fecha_creacion        => NULL,
         p_usuario_creacion      => NULL,
         p_fecha_actualizacion   => NULL,
@@ -41,7 +41,7 @@ BEGIN
         po_ID_AREA_generado     => v_id_generado,
         pv_resultado            => v_resultado
     );
-    afirmar(v_resultado LIKE 'OK:%', 'crear área válida');
+    afirmar(v_resultado LIKE 'OK:%', 'crear Ã¡rea vÃ¡lida');
     afirmar(v_id_generado IS NOT NULL AND v_id_generado > 0, 'generar ID_AREA');
     v_id_area := v_id_generado;
 
@@ -51,7 +51,7 @@ BEGIN
                         v_fecha_creacion, v_usuario_creacion,
                         v_fecha_actualizacion, v_usuario_actualizacion, v_activa;
     CLOSE v_cursor;
-    afirmar(v_id_generado = v_id_area, 'consultar área por ID');
+    afirmar(v_id_generado = v_id_area, 'consultar Ã¡rea por ID');
     afirmar(v_nombre = v_nombre_prueba, 'devolver nombre correcto');
     afirmar(v_activa = 'S', 'devolver estado activo');
 
@@ -59,7 +59,7 @@ BEGIN
     TICKETS.TK_AREAS_CRUD_PKG.TK_AREAS_ACTUALIZAR_P(
         p_id_area               => v_id_area,
         p_nombre_area           => v_nombre_prueba || ' ACTUALIZADA',
-        p_descripcion           => 'Descripción actualizada por prueba unitaria.',
+        p_descripcion           => 'DescripciÃ³n actualizada por prueba unitaria.',
         p_fecha_creacion        => v_fecha_creacion,
         p_usuario_creacion      => v_usuario_creacion,
         p_fecha_actualizacion   => NULL,
@@ -67,7 +67,7 @@ BEGIN
         p_activa                => 'S',
         pv_resultado            => v_resultado
     );
-    afirmar(v_resultado LIKE 'OK:%', 'actualizar área válida');
+    afirmar(v_resultado LIKE 'OK:%', 'actualizar Ã¡rea vÃ¡lida');
 
     -- Validar nombre duplicado.
     TICKETS.TK_AREAS_CRUD_PKG.TK_AREAS_CREAR_P(
@@ -118,13 +118,13 @@ BEGIN
         p_id_area    => v_id_area,
         pv_resultado => v_resultado
     );
-    afirmar(v_resultado LIKE 'OK:%', 'eliminar área');
+    afirmar(v_resultado LIKE 'OK:%', 'eliminar Ã¡rea');
 
     v_cursor := TICKETS.TK_AREAS_CRUD_PKG.TK_AREAS_CONSULTAR_F(v_id_area);
     FETCH v_cursor INTO v_id_generado, v_nombre, v_descripcion,
                         v_fecha_creacion, v_usuario_creacion,
                         v_fecha_actualizacion, v_usuario_actualizacion, v_activa;
-    afirmar(v_cursor%NOTFOUND, 'no devolver área eliminada');
+    afirmar(v_cursor%NOTFOUND, 'no devolver Ã¡rea eliminada');
     CLOSE v_cursor;
 
     DBMS_OUTPUT.PUT_LINE('=== TODAS LAS PRUEBAS TK_AREAS PASARON ===');
@@ -133,7 +133,7 @@ EXCEPTION
         IF v_cursor%ISOPEN THEN
             CLOSE v_cursor;
         END IF;
-        DBMS_OUTPUT.PUT_LINE('=== PRUEBA TK_AREAS FALLÓ ===');
+        DBMS_OUTPUT.PUT_LINE('=== PRUEBA TK_AREAS FALLÃ“ ===');
         RAISE;
 END;
 /

@@ -8,7 +8,7 @@ paquetes y tablas trabajando juntos, recorriendo flujos de negocio completos.
 Desde `C:\tickets`:
 
 ```powershell
-sql -thin "TICKETS/Tickets123@//192.168.80.178:1521/FREEpdb1" "@integration-tests/000-ejecuta-integration-tests.sql"
+sql -thin -nolog "@integration-tests/000-ejecuta-integration-tests.sql"
 ```
 
 ## Cobertura actual

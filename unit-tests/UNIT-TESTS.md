@@ -11,20 +11,24 @@ base de datos Oracle de desarrollo.
 - Permisos para ejecutar los paquetes y consultar las tablas.
 - Datos semilla activos para usuarios, areas y catalogos.
 
-La conexion de desarrollo utilizada es:
+Los maestros solicitan el identificador EZ Connect al iniciar. El valor
+predeterminado actual es:
 
 ```text
-TICKETS/Tickets123@//192.168.80.178:1521/FREEpdb1
+//192.168.0.17:1521/freepdb1
 ```
 
-No usar esta configuracion contra produccion.
+Escribe otro valor cuando cambie la IP de la VM, por ejemplo
+`//192.168.80.178:1521/freepdb1`. El usuario y la contrasena de desarrollo se
+mantienen en los scripts de prueba. No usar esta configuracion contra
+produccion.
 
 ## Ejecucion normal
 
 Desde `C:\tickets`:
 
 ```powershell
-sql -thin "TICKETS/Tickets123@//192.168.80.178:1521/FREEpdb1" "@unit-tests/000-ejecuta-unit-tests.sql"
+sql -thin -nolog "@unit-tests/000-ejecuta-unit-tests.sql"
 ```
 
 El maestro ejecuta las 19 pruebas en orden y muestra una linea `[OK]` por
@@ -39,7 +43,7 @@ modulo. Al finalizar muestra:
 Para mostrar cada asercion, el codigo PL/SQL y los comandos ejecutados:
 
 ```powershell
-sql -thin "TICKETS/Tickets123@//192.168.80.178:1521/FREEpdb1" "@unit-tests/000-ejecuta-unit-tests-verbose.sql"
+sql -thin -nolog "@unit-tests/000-ejecuta-unit-tests-verbose.sql"
 ```
 
 El modo normal se recomienda para ejecuciones rutinarias; verbose sirve para

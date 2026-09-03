@@ -1,11 +1,12 @@
 -- Script maestro de pruebas unitarias (modo resumido).
--- Muestra únicamente el resultado de cada prueba; ante un error se detiene.
+-- Muestra Ãºnicamente el resultado de cada prueba; ante un error se detiene.
 
 SET ECHO OFF
 SET FEEDBACK OFF
 SET SERVEROUTPUT ON
-SET DEFINE OFF
+SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
+ACCEPT DB_CONNECT CHAR DEFAULT '//192.168.0.17:1521/freepdb1' PROMPT 'EZ Connect [//192.168.0.17:1521/freepdb1]: '
 
 PROMPT [01/19] areas ...
 SET TERMOUT OFF
