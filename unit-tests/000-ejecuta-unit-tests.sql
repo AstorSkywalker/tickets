@@ -12,5 +12,19 @@ WHENEVER SQLERROR EXIT SQL.SQLCODE
 @@003-test-tk-tickets-negocio-reglas.sql
 @@004-test-tk-tickets-negocio-operaciones.sql
 @@005-test-tk-categorias-crud.sql
+@@006-test-tk-base-conocimientos-crud.sql
+@@007-test-tk-cat-estados-crud.sql
+@@008-test-tk-cat-prioridades-crud.sql
+@@009-test-tk-comentarios-crud.sql
+@@010-test-tk-encuestas-crud.sql
+@@011-test-tk-roles-crud.sql
+@@012-test-tk-usuarios-crud.sql
+@@013-test-tk-usuarios-roles-crud.sql
+@@015-test-tk-tickets-crud.sql
+@@014-test-tk-ticket-adjuntos-crud.sql
+@@016-test-tk-tickets-historial-crud.sql
+@@017-test-tk-tipos-activos-crud.sql
+@@018-test-tk-activos-crud.sql
+@@019-test-tk-activos-tickets-crud.sql
 
 EXIT

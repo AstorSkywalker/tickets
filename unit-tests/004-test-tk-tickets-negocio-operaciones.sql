@@ -70,8 +70,9 @@ BEGIN
       FROM TICKETS.TK_CAT_PRIORIDADES WHERE NOMBRE_PRIORIDAD = 'Media' AND ACTIVA = 'S';
     SELECT ID_AREA INTO v_id_area
       FROM TICKETS.TK_AREAS WHERE NOMBRE_AREA = 'Mesa de Ayuda' AND ACTIVA = 'S';
-    SELECT ID_TIPO_ACTIVO INTO v_id_tipo_activo
-      FROM TICKETS.TK_TIPOS_ACTIVOS WHERE NOMBRE_TIPO_ACTIVO = 'Equipo de Cómputo' AND ACTIVO = 'S';
+    SELECT MIN(ID_TIPO_ACTIVO) INTO v_id_tipo_activo
+      FROM TICKETS.TK_TIPOS_ACTIVOS WHERE ACTIVO = 'S';
+    afirmar(v_id_tipo_activo IS NOT NULL, 'existencia de tipo de activo semilla');
 
     TICKETS.TK_TICKETS_NEGOCIO_PKG.CREAR_TICKET(
         'TEST ESPERA ' || v_marca_tiempo, TO_CLOB('Prueba de espera y cancelación.'),

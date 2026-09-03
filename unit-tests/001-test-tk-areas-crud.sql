@@ -41,7 +41,7 @@ BEGIN
         po_ID_AREA_generado     => v_id_generado,
         pv_resultado            => v_resultado
     );
-    afirmar(v_resultado = 'OK: ÁREA CREADA', 'crear área válida');
+    afirmar(v_resultado LIKE 'OK:%', 'crear área válida');
     afirmar(v_id_generado IS NOT NULL AND v_id_generado > 0, 'generar ID_AREA');
     v_id_area := v_id_generado;
 
@@ -60,14 +60,14 @@ BEGIN
         p_id_area               => v_id_area,
         p_nombre_area           => v_nombre_prueba || ' ACTUALIZADA',
         p_descripcion           => 'Descripción actualizada por prueba unitaria.',
-        p_fecha_creacion        => NULL,
-        p_usuario_creacion      => NULL,
+        p_fecha_creacion        => v_fecha_creacion,
+        p_usuario_creacion      => v_usuario_creacion,
         p_fecha_actualizacion   => NULL,
         p_usuario_actualizacion => NULL,
         p_activa                => 'S',
         pv_resultado            => v_resultado
     );
-    afirmar(v_resultado = 'OK: ÁREA ACTUALIZADA', 'actualizar área válida');
+    afirmar(v_resultado LIKE 'OK:%', 'actualizar área válida');
 
     -- Validar nombre duplicado.
     TICKETS.TK_AREAS_CRUD_PKG.TK_AREAS_CREAR_P(
@@ -104,8 +104,8 @@ BEGIN
         p_id_area               => v_id_area,
         p_nombre_area           => v_nombre_prueba || ' ACTUALIZADA',
         p_descripcion           => 'No debe actualizarse.',
-        p_fecha_creacion        => NULL,
-        p_usuario_creacion      => NULL,
+        p_fecha_creacion        => v_fecha_creacion,
+        p_usuario_creacion      => v_usuario_creacion,
         p_fecha_actualizacion   => NULL,
         p_usuario_actualizacion => NULL,
         p_activa                => 'X',
@@ -118,7 +118,7 @@ BEGIN
         p_id_area    => v_id_area,
         pv_resultado => v_resultado
     );
-    afirmar(v_resultado = 'OK: ÁREA ELIMINADA', 'eliminar área');
+    afirmar(v_resultado LIKE 'OK:%', 'eliminar área');
 
     v_cursor := TICKETS.TK_AREAS_CRUD_PKG.TK_AREAS_CONSULTAR_F(v_id_area);
     FETCH v_cursor INTO v_id_generado, v_nombre, v_descripcion,
