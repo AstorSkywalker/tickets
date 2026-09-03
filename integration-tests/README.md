@@ -28,5 +28,7 @@ La prueba crea datos temporales y los elimina tanto al finalizar correctamente
 como cuando ocurre un error. El maestro se detiene en el primer error mediante
 `WHENEVER SQLERROR EXIT SQL.SQLCODE`.
 
-Estas pruebas requieren los usuarios y catalogos semilla activos usados por el
-flujo de negocio.
+Estas pruebas requieren que existan y esten activos los usuarios y roles
+semilla usados por el flujo de negocio, incluyendo sus relaciones en
+`TK_USUARIOS_ROLES`. Tambien deben existir los catalogos semilla activos:
+areas, categorias, prioridades, estados y tipos de activos.
