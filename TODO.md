@@ -24,3 +24,5 @@
 El primer comando ejecuta las pruebas unitarias en modo resumido; el segundo
 las ejecuta en modo verbose. El tercero ejecuta las pruebas integrales. Todos
 solicitan usuario, contraseña y EZ Connect al iniciar.
+
+Linea de prueba nnelson
