@@ -14,6 +14,11 @@ SET TERMOUT OFF
 @@001-test-flujo-ticket-completo.sql
 SET TERMOUT ON
 PROMPT [OK] flujo completo de ticket
+PROMPT [02/02] escenarios de ticket ...
+SET TERMOUT OFF
+@@002-test-escenarios-ticket.sql
+SET TERMOUT ON
+PROMPT [OK] escenarios de ticket
 PROMPT === TODAS LAS PRUEBAS INTEGRALES PASARON ===
 
 EXIT
