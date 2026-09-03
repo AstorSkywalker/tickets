@@ -1,0 +1,16 @@
+-- Maestro de pruebas integrales.
+
+SET ECHO OFF
+SET FEEDBACK OFF
+SET SERVEROUTPUT ON
+SET DEFINE OFF
+WHENEVER SQLERROR EXIT SQL.SQLCODE
+
+PROMPT [01/01] flujo completo de ticket ...
+SET TERMOUT OFF
+@@001-test-flujo-ticket-completo.sql
+SET TERMOUT ON
+PROMPT [OK] flujo completo de ticket
+PROMPT === TODAS LAS PRUEBAS INTEGRALES PASARON ===
+
+EXIT
