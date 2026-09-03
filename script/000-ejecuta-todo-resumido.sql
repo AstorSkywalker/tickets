@@ -1,13 +1,34 @@
--- Script maestro del proyecto de tickets
--- Ejecuta todos los scripts en el orden de dependencias.
+-- Script maestro resumido del proyecto de tickets
+-- Ejecuta todos los scripts en el orden de dependencias con salida resumida.
+--
+-- Desde PowerShell con SQLcl:
+-- & "C:\sqlcl\bin\sql.exe" -thin /nolog "@C:\tickets\script\000-ejecuta-todo-resumido.sql"
 
-SET ECHO ON
-SET FEEDBACK ON
-SET SERVEROUTPUT ON
-SET DEFINE OFF
+SET ECHO OFF
+SET FEEDBACK OFF
+SET SERVEROUTPUT OFF
+SET DEFINE ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
--- El maestro usa la conexión SYS AS SYSDBA abierta por SQL*Plus/SQLcl.
+PROMPT
+PROMPT === Parametros de conexion ===
+PROMPT Presione ENTER para aceptar el valor mostrado entre corchetes.
+
+ACCEPT SYS_PASSWORD CHAR DEFAULT 'CAMBIAR_SYS' HIDE PROMPT 'Password de SYS [CAMBIAR_SYS]: '
+ACCEPT DB_HOST CHAR DEFAULT '192.168.80.178' PROMPT 'Host [192.168.80.178]: '
+ACCEPT DB_PORT CHAR DEFAULT '1521' PROMPT 'Puerto [1521]: '
+ACCEPT DB_SERVICE CHAR DEFAULT 'freepdb1' PROMPT 'Servicio/PDB [freepdb1]: '
+ACCEPT TICKETS_PASSWORD CHAR DEFAULT 'CAMBIAR_TICKETS' HIDE PROMPT 'Password de TICKETS [CAMBIAR_TICKETS]: '
+
+DEFINE DB_CONNECT = '//&DB_HOST:&DB_PORT/&DB_SERVICE'
+DEFINE DB_USER = 'TICKETS'
+DEFINE DB_PASSWORD = '&TICKETS_PASSWORD'
+
+PROMPT
+PROMPT === Conexion SYS AS SYSDBA ===
+CONNECT SYS/&SYS_PASSWORD@&DB_CONNECT AS SYSDBA
+
+-- El maestro usa la conexiÃ³n SYS AS SYSDBA abierta por SQL*Plus/SQLcl.
 -- Ejemplo: CONNECT SYS/<password>@192.168.80.178:1521/FREEpdb1 AS SYSDBA
 
 -- 001-004: estructura base
@@ -15,9 +36,17 @@ WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 @@estructura/002-crea-usuario-tickets.sql
 
+
+
+PROMPT
+PROMPT === Conexion TICKETS ===
+SET DEFINE ON
+CONNECT &DB_USER/&DB_PASSWORD@&DB_CONNECT
+
 @@estructura/003-crea-tablas.sql
 
 @@estructura/004-crea-triggers.sql
+
 
 -- 005-020: especificaciones CRUD
 @@crud/specs/005-crea-tk_areas-crud-spec.sql
@@ -68,4 +97,8 @@ WHENEVER SQLERROR EXIT SQL.SQLCODE
 @@negocio/028-crea-paquete-negocio-spec.sql
 @@negocio/028-crea-paquete-negocio-body.sql
 
+
+
+PROMPT Proceso completado correctamente.
 EXIT
+

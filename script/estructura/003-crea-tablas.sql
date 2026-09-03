@@ -1,6 +1,7 @@
 -- =====================================================================
 -- SISTEMA DE HELP DESK - MODELO DE DATOS ORACLE v1.0
-CONNECT TICKETS/Tickets123@192.168.80.178:1521/FREEpdb1
+SET DEFINE ON
+CONNECT &DB_USER/&DB_PASSWORD@&DB_CONNECT
 
 -- Versión corregida y consolidada
 -- Compatible con Oracle Database 19c, 21c y 23ai
