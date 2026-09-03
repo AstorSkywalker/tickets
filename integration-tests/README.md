@@ -13,8 +13,8 @@ sql -thin -nolog "@integration-tests/000-ejecuta-integration-tests.sql"
 
 El maestro solicita usuario, contrasena y EZ Connect. Por defecto propone
 `TICKETS`, `Tickets123` y `//192.168.0.17:1521/freepdb1`, respectivamente.
-Presiona Enter para aceptar un valor o escribe uno diferente; la contrasena
-se solicita de forma oculta.
+Presiona Enter para aceptar un valor o escribe uno diferente. No usar esta
+configuracion contra produccion.
 
 ## Cobertura actual
 

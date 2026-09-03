@@ -20,8 +20,8 @@ Contrasena: Tickets123
 EZ Connect: //192.168.0.17:1521/freepdb1
 ```
 
-Presiona Enter para aceptar cada valor o escribe uno diferente. La contrasena
-se solicita de forma oculta. No usar esta configuracion contra produccion.
+Presiona Enter para aceptar cada valor o escribe uno diferente. No usar esta
+configuracion contra produccion.
 
 ## Ejecucion normal
 
